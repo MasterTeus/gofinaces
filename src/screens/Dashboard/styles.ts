@@ -1,14 +1,61 @@
 import styled from "styled-components/native";
+import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
+import { Feather } from "@expo/vector-icons";
 
 export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: center;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
-export const MiniTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.primary};
+export const Header = styled.View`
+  width: 100%;
+  height: ${RFPercentage(42)}px;
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const UserWapper = styled.View`
+  width: 100%;
+  flex-direction: row;
+  padding: 0px 24px;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 48px;
+`;
+
+export const UserInfo = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const Avatar = styled.Image`
+  width: ${RFValue(48)}px;
+  height: ${RFValue(48)}px;
+  border-radius: 12px;
+`;
+
+export const UserContain = styled.View`
+  margin-left: 17px;
+`;
+
+export const WellcomeText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(18)}px;
+  margin-top: 8px;
+`;
+
+export const UserNameText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};
-  font-size: 24px;
+  color: ${({ theme }) => theme.colors.shape};
+  font-size: ${RFValue(18)}px;
+  bottom: 8px;
+`;
+
+export const Logout = styled.TouchableOpacity`
+  padding: 10px;
+`;
+
+export const LogoutIcon = styled(Feather)`
+  font-size: ${RFValue(24)}px;
+  color: ${({ theme }) => theme.colors.secondary};
 `;
