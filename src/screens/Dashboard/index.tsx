@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "../../components/Card";
 import {
   Container,
   Header,
@@ -10,6 +11,7 @@ import {
   UserNameText,
   Logout,
   LogoutIcon,
+  ListCards,
 } from "./styles";
 
 export function Dashboard() {
@@ -33,6 +35,12 @@ export function Dashboard() {
           </Logout>
         </UserWapper>
       </Header>
+
+      <ListCards>
+        <Card />
+        <Card />
+        <Card />
+      </ListCards>
     </Container>
   );
 }

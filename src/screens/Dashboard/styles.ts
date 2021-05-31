@@ -19,7 +19,7 @@ export const UserWapper = styled.View`
   padding: 0px 24px;
   justify-content: space-between;
   align-items: center;
-  margin-top: 48px;
+  margin-top: 28px;
 `;
 
 export const UserInfo = styled.View`
@@ -58,4 +58,15 @@ export const Logout = styled.TouchableOpacity`
 export const LogoutIcon = styled(Feather)`
   font-size: ${RFValue(24)}px;
   color: ${({ theme }) => theme.colors.secondary};
+`;
+
+export const ListCards = styled.ScrollView.attrs({
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+  contentContainerStyle: { paddingLeft: 24},
+})`
+  width: 100%;
+
+  position: absolute;
+  top: ${RFPercentage(18)}px;
 `;
