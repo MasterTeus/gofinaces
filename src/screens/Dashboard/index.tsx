@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Container, MiniTitle } from "./styles";
 
 export function Dashboard() {
   return (
-    <View style={styles.container}>
-      <Text>Dashboard</Text>
-    </View>
+    <Container>
+      <MiniTitle>Dashboard</MiniTitle>
+    </Container>
   );
 }
 
