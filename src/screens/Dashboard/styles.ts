@@ -63,10 +63,22 @@ export const LogoutIcon = styled(Feather)`
 export const ListCards = styled.ScrollView.attrs({
   horizontal: true,
   showsHorizontalScrollIndicator: false,
-  contentContainerStyle: { paddingLeft: 24},
+  contentContainerStyle: { paddingLeft: 24 },
 })`
   width: 100%;
 
   position: absolute;
   top: ${RFPercentage(18)}px;
+`;
+
+export const ListTransactions = styled.View`
+  flex: 1;
+  margin-top: ${RFValue(64)}px;
+  padding: 0px 24px;
+`;
+export const TitleTransaction = styled.Text`
+  color: ${({ theme }) => theme.colors.title};
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: ${RFValue(18)}px;
+  margin-bottom: 16px;
 `;

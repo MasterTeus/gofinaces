@@ -17,7 +17,7 @@ interface Props {
   type: "up" | "down" | "total";
 }
 
-export default function Card({ type, title, amount, lastTransaction }: Props) {
+export function Card({ type, title, amount, lastTransaction }: Props) {
   const icon = {
     up: "arrow-up-circle",
     down: "arrow-down-circle",

@@ -1,13 +1,13 @@
 import styled, { css } from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
-import { RFValue } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 
 interface TypesProps {
   type: "up" | "down" | "total";
 }
 
 export const Container = styled.View<TypesProps>`
-  width: ${RFValue(300)}px;
+  width: ${RFPercentage(40)}px;
   border-radius: 5px;
   padding: 19px 24px 42px;
   margin-right: 16px;
