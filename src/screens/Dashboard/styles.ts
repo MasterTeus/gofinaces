@@ -82,3 +82,8 @@ export const TitleTransaction = styled.Text`
   font-size: ${RFValue(18)}px;
   margin-bottom: 16px;
 `;
+
+export const TransactionList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  contentContainerStyle: { paddingBottom: 32 },
+})``;

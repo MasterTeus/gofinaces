@@ -15,9 +15,57 @@ import {
   ListCards,
   ListTransactions,
   TitleTransaction,
+  TransactionList,
 } from "./styles";
 
 export function Dashboard() {
+  const data = [
+    {
+      id: 1,
+      type: "positive",
+      title: "Desenvolvimento de site",
+      amount: "R$ 12.000,00",
+      date: "10/04/2020",
+      category: {
+        value: "Venda",
+        icon: "pay",
+      },
+    },
+    {
+      id: 2,
+      type: "negative",
+      title: "Hamburgueria Pizzy",
+      amount: "R$ 59,00",
+      date: "10/04/2020",
+      category: {
+        value: "Alimentação",
+        icon: "coffee",
+      },
+    },
+    {
+      id: 3,
+      type: "negative",
+      title: "Aluguel do apartamento",
+      amount: "R$ 1.200,00",
+      date: "10/04/2020",
+      category: {
+        value: "Casa",
+        icon: "home",
+      },
+    },
+    {
+      id: 4,
+      type: "negative",
+      title: "MacBook Pro 13Inch",
+      amount: "R$ 8.000,00",
+      date: "10/04/2020",
+      category: {
+        value: "Compra",
+        icon: "pay",
+      },
+    },
+  ];
+
   return (
     <Container>
       <Header>
@@ -63,7 +111,11 @@ export function Dashboard() {
       <ListTransactions>
         <TitleTransaction>Listagem</TitleTransaction>
 
-        <CardsTransaction />
+        <TransactionList
+          data={data}
+          keyExtractor={({ id }) => id}
+          renderItem={({ item }) => <CardsTransaction data={item} />}
+        />
       </ListTransactions>
     </Container>
   );

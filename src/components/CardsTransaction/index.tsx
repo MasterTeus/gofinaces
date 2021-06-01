@@ -10,19 +10,41 @@ import {
   Date,
 } from "./styles";
 
-export function CardsTransaction() {
+interface Props {
+  data: {
+    type: "positive" | "negative";
+    title: string;
+    amount: string;
+    category: {
+      value: string;
+      icon: "coffee" | "pay" | "home";
+    };
+    date: string;
+  };
+}
+
+export function CardsTransaction({ data }: Props) {
+  const icons = {
+    coffee: "coffee",
+    pay: "dollar-sign",
+    home: "home",
+  };
+
   return (
     <Container>
-      <Title>Desenvolvimento de site</Title>
-      <Amounted>R$ 12.000,00</Amounted>
+      <Title>{data?.title}</Title>
+      <Amounted type={data.type}>
+        {data?.type === "negative" && "- "}
+        {data?.amount}
+      </Amounted>
 
       <Footer>
         <TypeTransaction>
-          <Icon name="dollar-sign" />
-          <TransactionType>Vendas</TransactionType>
+          <Icon name={icons[data?.category.icon]} />
+          <TransactionType>{data?.category?.value}</TransactionType>
         </TypeTransaction>
 
-        <Date>13/04/2020</Date>
+        <Date>{data?.date}</Date>
       </Footer>
     </Container>
   );
