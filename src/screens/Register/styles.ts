@@ -1,8 +1,11 @@
+import { Platform } from "react-native";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import { RFValue } from "react-native-responsive-fontsize";
 import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const Header = styled.View`
@@ -11,7 +14,9 @@ export const Header = styled.View`
   align-items: center;
   background-color: ${({ theme }) => theme.colors.primary};
 
-  height: ${RFValue(90)}px;
+  height: ${Platform.OS === "ios"
+    ? getStatusBarHeight() + RFValue(83)
+    : RFValue(83)}px;
 `;
 
 export const Title = styled.Text`
@@ -21,4 +26,13 @@ export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.shape};
 
   margin-bottom: ${RFValue(18)}px;
+`;
+
+export const FormWapper = styled.View`
+  flex: 1;
+  padding: ${RFValue(24)}px;
+  justify-content: space-between;
+`;
+
+export const Fields = styled.View`
 `;
