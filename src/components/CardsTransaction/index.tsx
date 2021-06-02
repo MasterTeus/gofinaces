@@ -10,19 +10,22 @@ import {
   Date,
 } from "./styles";
 
-interface Props {
-  data: {
-    type: "positive" | "negative";
-    title: string;
-    amount: string;
-    category: {
-      value: string;
-      icon: "coffee" | "pay" | "home";
-    };
-    date: string;
-  };
+interface CategoryProps {
+  value: string;
+  icon: "coffee" | "pay" | "home";
 }
 
+export interface TransactionCardProps {
+  type: "positive" | "negative";
+  title: string;
+  amount: string;
+  category: CategoryProps;
+  date: string;
+}
+
+interface Props {
+  data: TransactionCardProps;
+}
 export function CardsTransaction({ data }: Props) {
   const icons = {
     coffee: "coffee",
