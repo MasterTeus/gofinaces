@@ -1,8 +1,14 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
+import { Platform } from "react-native";
 import { RFValue, RFPercentage } from "react-native-responsive-fontsize";
 import { Feather } from "@expo/vector-icons";
 import { FlatList } from "react-native";
 import { DataListProps } from ".";
+import { getStatusBarHeight } from "react-native-iphone-x-helper";
+
+interface PlatformProps {
+  platform: string;
+}
 
 export const Container = styled.View`
   flex: 1;
@@ -15,13 +21,15 @@ export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
 `;
 
-export const UserWapper = styled.View`
+export const UserWapper = styled.View<PlatformProps>`
   width: 100%;
   flex-direction: row;
   padding: 0px 24px;
+  padding-top: ${({ platform }) =>
+    platform === "ios" ? getStatusBarHeight() + RFValue(28) : RFValue(28)}px;
+
   justify-content: space-between;
   align-items: center;
-  margin-top: 28px;
 `;
 
 export const UserInfo = styled.View`
