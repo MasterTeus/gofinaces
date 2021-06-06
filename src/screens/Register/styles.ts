@@ -34,5 +34,11 @@ export const FormWapper = styled.View`
   justify-content: space-between;
 `;
 
-export const Fields = styled.View`
+export const Fields = styled.View``;
+
+export const TransactionTypeGroup = styled.View`
+  margin-top: 8px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 `;
