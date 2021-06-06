@@ -11,14 +11,22 @@ import { Input } from "../../components/Form/Input";
 import { Button } from "../../components/Form/Button";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { CategorySelect } from "../../components/Form/CategorySelect";
+import { Modal } from "react-native";
+import { CategorySelectModal } from "../CategorySelectModal";
 
 export function Register() {
   const [transactionType, setTransactionType] = useState("");
+  const [category, setCategory] = useState({
+    key: "category",
+    name: "Categoria",
+    color: "#969cb2",
+    icon: "",
+  });
+  const [modal, setModal] = useState(false);
 
   function handleTransactionsTypeSelect(type: "up" | "down") {
     setTransactionType(type);
   }
-
   return (
     <Container>
       <Header>
@@ -45,7 +53,18 @@ export function Register() {
             />
           </TransactionTypeGroup>
 
-          <CategorySelect title="Categoria" />
+          <CategorySelect
+            onPress={() => setModal(true)}
+            title={category.name}
+            buttonProps={category}
+          />
+          <Modal animationType="slide" statusBarTranslucent hardwareAccelerated visible={modal}>
+            <CategorySelectModal
+              category={category}
+              setCategory={setCategory}
+              closeSelectCategory={() => setModal(false)}
+            />
+          </Modal>
         </Fields>
         <Button title="Enviar" />
       </FormWapper>

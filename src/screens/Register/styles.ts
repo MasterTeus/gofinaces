@@ -15,8 +15,8 @@ export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
 
   height: ${Platform.OS === "ios"
-    ? getStatusBarHeight() + RFValue(83)
-    : RFValue(83)}px;
+    ? getStatusBarHeight() + RFValue(84)
+    : RFValue(84)}px;
 `;
 
 export const Title = styled.Text`
