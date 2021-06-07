@@ -13,6 +13,13 @@ import { TransactionTypeButton } from "../../components/Form/TransactionTypeButt
 import { CategorySelect } from "../../components/Form/CategorySelect";
 import { Modal } from "react-native";
 import { CategorySelectModal } from "../CategorySelectModal";
+import { InputForm } from "../../components/Form/InputForm";
+import { useForm } from "react-hook-form";
+
+interface FormData {
+  name: string;
+  amount: string;
+}
 
 export function Register() {
   const [transactionType, setTransactionType] = useState("");
@@ -27,6 +34,20 @@ export function Register() {
   function handleTransactionsTypeSelect(type: "up" | "down") {
     setTransactionType(type);
   }
+
+  function handleRegister(form: FormData) {
+    const data = {
+      name: form.name,
+      amount: form.amount,
+      transactionType,
+      category: category.key,
+    };
+    console.log("====================================");
+    console.log(data);
+    console.log("====================================");
+  }
+
+  const { control, handleSubmit } = useForm();
   return (
     <Container>
       <Header>
@@ -35,8 +56,8 @@ export function Register() {
 
       <FormWapper>
         <Fields>
-          <Input placeholder="Nome" />
-          <Input placeholder="Preço" />
+          <InputForm placeholder="Nome" name="name" control={control} />
+          <InputForm placeholder="Preço" name="amount" control={control} />
 
           <TransactionTypeGroup>
             <TransactionTypeButton
@@ -58,7 +79,12 @@ export function Register() {
             title={category.name}
             buttonProps={category}
           />
-          <Modal animationType="slide" statusBarTranslucent hardwareAccelerated visible={modal}>
+          <Modal
+            animationType="slide"
+            statusBarTranslucent
+            hardwareAccelerated
+            visible={modal}
+          >
             <CategorySelectModal
               category={category}
               setCategory={setCategory}
@@ -66,7 +92,7 @@ export function Register() {
             />
           </Modal>
         </Fields>
-        <Button title="Enviar" />
+        <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
       </FormWapper>
     </Container>
   );
