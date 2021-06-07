@@ -8,10 +8,10 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import theme from "./src/global/styles/theme";
-import { Dashboard } from "./src/screens/Dashboard";
-import { Register } from "./src/screens/Register";
 import { View, StyleSheet, StatusBar } from "react-native";
-import { CategorySelect } from "./src/screens/CategorySelect";
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import { AppRouter } from "./src/routes/app.routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,9 +26,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar backgroundColor="#5636D3" />
-      {/* <Register /> */}
-      <Register />
+      <NavigationContainer>
+        {/* <StatusBar backgroundColor="#5636D3" /> */}
+        {/* <Register /> */}
+        <AppRouter />
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
