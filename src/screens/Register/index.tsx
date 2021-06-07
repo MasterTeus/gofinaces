@@ -7,11 +7,10 @@ import {
   Fields,
   TransactionTypeGroup,
 } from "./styles";
-import { Input } from "../../components/Form/Input";
 import { Button } from "../../components/Form/Button";
 import { TransactionTypeButton } from "../../components/Form/TransactionTypeButton";
 import { CategorySelect } from "../../components/Form/CategorySelect";
-import { Modal } from "react-native";
+import { Keyboard, Modal, TouchableWithoutFeedback } from "react-native";
 import { CategorySelectModal } from "../CategorySelectModal";
 import { InputForm } from "../../components/Form/InputForm";
 import { useForm } from "react-hook-form";
@@ -49,51 +48,64 @@ export function Register() {
 
   const { control, handleSubmit } = useForm();
   return (
-    <Container>
-      <Header>
-        <Title>Cadastro</Title>
-      </Header>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Header>
+          <Title>Cadastro</Title>
+        </Header>
 
-      <FormWapper>
-        <Fields>
-          <InputForm placeholder="Nome" name="name" control={control} />
-          <InputForm placeholder="Preço" name="amount" control={control} />
+        <FormWapper>
+          <Fields>
+            <InputForm
+              name="name"
+              control={control}
+              placeholder="Nome"
+              autoCapitalize="sentences"
+              autoCorrect={false}
+            />
+            <InputForm
+              placeholder="Preço"
+              name="amount"
+              control={control}
+              keyboardType="numeric"
+            />
 
-          <TransactionTypeGroup>
-            <TransactionTypeButton
-              title="Entrada"
-              type="up"
-              onPress={() => handleTransactionsTypeSelect("up")}
-              isActive={Boolean(transactionType === "up")}
-            />
-            <TransactionTypeButton
-              title="Saída"
-              type="down"
-              onPress={() => handleTransactionsTypeSelect("down")}
-              isActive={Boolean(transactionType === "down")}
-            />
-          </TransactionTypeGroup>
+            <TransactionTypeGroup>
+              <TransactionTypeButton
+                title="Entrada"
+                type="up"
+                onPress={() => handleTransactionsTypeSelect("up")}
+                isActive={Boolean(transactionType === "up")}
+              />
+              <TransactionTypeButton
+                title="Saída"
+                type="down"
+                onPress={() => handleTransactionsTypeSelect("down")}
+                isActive={Boolean(transactionType === "down")}
+              />
+            </TransactionTypeGroup>
 
-          <CategorySelect
-            onPress={() => setModal(true)}
-            title={category.name}
-            buttonProps={category}
-          />
-          <Modal
-            animationType="slide"
-            statusBarTranslucent
-            hardwareAccelerated
-            visible={modal}
-          >
-            <CategorySelectModal
-              category={category}
-              setCategory={setCategory}
-              closeSelectCategory={() => setModal(false)}
+            <CategorySelect
+              onPress={() => setModal(true)}
+              title={category.name}
+              buttonProps={category}
             />
-          </Modal>
-        </Fields>
-        <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
-      </FormWapper>
-    </Container>
+            <Modal
+              animationType="slide"
+              statusBarTranslucent
+              hardwareAccelerated
+              visible={modal}
+            >
+              <CategorySelectModal
+                category={category}
+                setCategory={setCategory}
+                closeSelectCategory={() => setModal(false)}
+              />
+            </Modal>
+          </Fields>
+          <Button title="Enviar" onPress={handleSubmit(handleRegister)} />
+        </FormWapper>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }
