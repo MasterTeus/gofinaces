@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
 
 interface PropsTypes {
-  type: "positive" | "negative";
+  type: "up" | "down";
 }
 
 export const Container = styled.View`
@@ -22,7 +22,7 @@ export const Title = styled.Text`
 
 export const Amounted = styled.Text<PropsTypes>`
   color: ${({ theme, type }) =>
-    type === "positive" ? theme.colors.success : theme.colors.attention};
+    type === "up" ? theme.colors.success : theme.colors.attention};
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
 `;

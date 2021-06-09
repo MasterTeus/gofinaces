@@ -1,4 +1,6 @@
+import moment from "moment";
 import React from "react";
+import { categories } from "../../utils/categories";
 import {
   Container,
   Title,
@@ -9,17 +11,11 @@ import {
   TransactionType,
   Date,
 } from "./styles";
-
-interface CategoryProps {
-  value: string;
-  icon: "coffee" | "pay" | "home";
-}
-
 export interface TransactionCardProps {
-  type: "positive" | "negative";
-  title: string;
+  transactionType: "up" | "down";
+  name: string;
   amount: string;
-  category: CategoryProps;
+  category: string;
   date: string;
 }
 
@@ -27,27 +23,28 @@ interface Props {
   data: TransactionCardProps;
 }
 export function CardsTransaction({ data }: Props) {
-  const icons = {
-    coffee: "coffee",
-    pay: "dollar-sign",
-    home: "home",
-  };
+  const categorys = categories.filter((i) => i.key === data.category)[0];
+
+  const amount = Number(data?.amount).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
 
   return (
     <Container>
-      <Title>{data?.title}</Title>
-      <Amounted type={data.type}>
-        {data?.type === "negative" && "- "}
-        {data?.amount}
+      <Title>{data?.name}</Title>
+      <Amounted type={data.transactionType}>
+        {data?.transactionType === "down" && "- "}
+        {amount}
       </Amounted>
 
       <Footer>
         <TypeTransaction>
-          <Icon name={icons[data?.category.icon]} />
-          <TransactionType>{data?.category?.value}</TransactionType>
+          <Icon name={categorys.icon} />
+          <TransactionType>{categorys.name}</TransactionType>
         </TypeTransaction>
 
-        <Date>{data?.date}</Date>
+        <Date>{moment(data?.date).format("DD/MM/YYYY")}</Date>
       </Footer>
     </Container>
   );

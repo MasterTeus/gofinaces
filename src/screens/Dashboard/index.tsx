@@ -1,4 +1,5 @@
-import React from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useEffect, useState } from "react";
 import { Platform } from "react-native";
 import { Card } from "../../components/Card";
 import {
@@ -27,52 +28,19 @@ export interface DataListProps extends TransactionCardProps {
 }
 
 export function Dashboard() {
-  const data: DataListProps[] = [
-    {
-      id: "1",
-      type: "positive",
-      title: "Desenvolvimento de site",
-      amount: "R$ 12.000,00",
-      date: "10/04/2020",
-      category: {
-        value: "Venda",
-        icon: "pay",
-      },
-    },
-    {
-      id: "2",
-      type: "negative",
-      title: "Hamburgueria Pizzy",
-      amount: "R$ 59,00",
-      date: "10/04/2020",
-      category: {
-        value: "Alimentação",
-        icon: "coffee",
-      },
-    },
-    {
-      id: "3",
-      type: "negative",
-      title: "Aluguel do apartamento",
-      amount: "R$ 1.200,00",
-      date: "10/04/2020",
-      category: {
-        value: "Casa",
-        icon: "home",
-      },
-    },
-    {
-      id: "4",
-      type: "negative",
-      title: "MacBook Pro 13Inch",
-      amount: "R$ 8.000,00",
-      date: "10/04/2020",
-      category: {
-        value: "Compra",
-        icon: "pay",
-      },
-    },
-  ];
+  const [data, setData] = useState<DataListProps[]>([]);
+
+  async function loadTransactions() {
+    const key = "@gofinance:transactions";
+
+    const transactionsLoaded = await AsyncStorage.getItem(key);
+
+    setData(JSON.parse(transactionsLoaded));
+  }
+
+  useEffect(() => {
+    loadTransactions();
+  }, []);
 
   return (
     <Container>

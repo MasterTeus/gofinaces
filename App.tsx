@@ -6,6 +6,8 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
 
 import theme from "./src/global/styles/theme";
 import { View, StyleSheet, StatusBar } from "react-native";
