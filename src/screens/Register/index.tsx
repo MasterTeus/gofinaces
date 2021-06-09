@@ -14,10 +14,13 @@ import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from "react-native";
 import { CategorySelectModal } from "../CategorySelectModal";
 import { InputForm } from "../../components/Form/InputForm";
 
-import { useForm } from "react-hook-form";
+import uuid from "react-native-uuid";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { useForm } from "react-hook-form";
+import { useNavigation } from "@react-navigation/native";
 
 interface FormData {
   name: string;
@@ -33,6 +36,7 @@ const schema = Yup.object().shape({
 
 export function Register() {
   const dataKey = "@gofinance:transactions";
+  const navigation = useNavigation();
 
   //! States
   const [transactionType, setTransactionType] = useState("");
@@ -47,6 +51,7 @@ export function Register() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
@@ -63,29 +68,44 @@ export function Register() {
       return Alert.alert("Selecione a categoria");
     }
 
-    const data = {
+    const newData = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionType,
       category: category.key,
+      date: new Date().toISOString(),
     };
 
     try {
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+      const oldTransacitions = await AsyncStorage.getItem(dataKey);
+
+      const currentTransactions = oldTransacitions
+        ? JSON.parse(oldTransacitions)
+        : [];
+
+      const dataFormated = [newData, ...currentTransactions];
+
+      console.log(dataFormated);
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
+
+      //* Reset Fields Values
+      reset();
+      setTransactionType("");
+      setCategory({
+        key: "category",
+        name: "Categoria",
+        color: "#969cb2",
+        icon: "",
+      });
+
+      navigation.navigate("Home");
     } catch (error) {
       console.log(error);
       Alert.alert("Não foi possível salvar");
     }
   }
-
-  useEffect(() => {
-    async function loadTransaction() {
-      const transacitionsData = await AsyncStorage.getItem(dataKey);
-
-      console.log(JSON.parse(transacitionsData!));
-    }
-    loadTransaction();
-  });
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
