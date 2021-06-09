@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { FlatList } from "react-native";
 import { DataListProps } from ".";
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
+import { BorderlessButton } from "react-native-gesture-handler";
 
 interface PlatformProps {
   platform: string;
@@ -61,7 +62,7 @@ export const UserNameText = styled.Text`
   bottom: 8px;
 `;
 
-export const Logout = styled.TouchableOpacity`
+export const Logout = styled(BorderlessButton)`
   padding: 10px;
 `;
 
