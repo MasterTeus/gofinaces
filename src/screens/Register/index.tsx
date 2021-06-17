@@ -21,6 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { useForm } from "react-hook-form";
 import { useNavigation } from "@react-navigation/native";
+import { storeTransaction } from "../../services";
 
 interface FormData {
   name: string;
@@ -86,7 +87,7 @@ export function Register() {
 
       const dataFormated = [newData, ...currentTransactions];
 
-      await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
+      await storeTransaction(dataFormated);
 
       //* Reset Fields Values
       reset();

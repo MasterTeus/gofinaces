@@ -1,9 +1,8 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Platform, ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
+import { getTransactions } from "../../services";
 
 import { Card } from "../../components/Card";
 import {
@@ -53,17 +52,11 @@ export function Dashboard() {
 
   //TODO: Busca dados
   async function loadTransactions() {
-    const key = "@gofinance:transactions";
+    const transactionsLoaded = await getTransactions();
 
-    const transactionsLoaded = await AsyncStorage.getItem(key);
+    setTransacitons(transactionsLoaded);
 
-    const transactionData = transactionsLoaded
-      ? JSON.parse(transactionsLoaded)
-      : [];
-
-    setTransacitons(transactionData);
-
-    calculateTotals(transactionData);
+    calculateTotals(transactionsLoaded);
 
     setIsLoading(false);
   }
