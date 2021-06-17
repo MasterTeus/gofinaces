@@ -86,8 +86,6 @@ export function Register() {
 
       const dataFormated = [newData, ...currentTransactions];
 
-      console.log(dataFormated);
-
       await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormated));
 
       //* Reset Fields Values
