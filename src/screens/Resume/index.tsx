@@ -16,6 +16,8 @@ interface HistoryCardProps {
   name: string;
   total: string;
   color: string;
+  percentFormatted: string;
+  percent: string;
 }
 
 export function Resume() {
@@ -28,6 +30,13 @@ export function Resume() {
 
     const expensives = response.filter(
       (expensive: TransactionCardProps) => expensive.transactionType === "down"
+    );
+
+    const expensivesTotal = expensives.reduce(
+      (interator: number, expensive: TransactionCardProps) => {
+        return interator + Number(expensive.amount);
+      },
+      0
     );
     let totalByCategory = [];
 
@@ -46,13 +55,19 @@ export function Resume() {
           currency: "BRL",
         });
 
+        const percent = (categorySum / expensivesTotal) * 100;
+        const percentFormatted = `${percent.toFixed(0)}`;
+
         totalByCategory.push({
           name: category.name,
           color: category.color,
           total,
+          percent,
+          percentFormatted,
         });
       }
     });
+    
 
     setTotalByCategory(totalByCategory);
   }
