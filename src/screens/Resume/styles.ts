@@ -33,8 +33,7 @@ export const Title = styled.Text`
 
 export const Content = styled.ScrollView.attrs({
   contentContainerStyle: { flex: 1, padding: 24 },
-})`
-`;
+})``;
 
 export const ChartContainer = styled.View`
   align-items: center;
@@ -55,10 +54,15 @@ export const MonthSelect = styled.View`
 export const MonthSelectButton = styled(BorderlessButton)``;
 
 export const SelectIcon = styled(Feather)`
-  font-size: 24px;
+  font-size: 32px;
 `;
 
 export const Month = styled.Text`
   font-size: ${RFValue(20)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+`;
+export const ContainerLoading = styled.View`
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
 `;
