@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
+import { VictoryPie } from "victory-native";
 
-import { Container, Header, Title, Content } from "./styles";
+import { Container, Header, Title, Content, ChartContainer } from "./styles";
 import { HistoryCard } from "../../components/HistoryCard";
 import { getTransactions } from "../../services";
 import { categories } from "../../utils/categories";
+import { RFValue } from "react-native-responsive-fontsize";
 interface TransactionCardProps {
   transactionType: "up" | "down";
   name: string;
@@ -21,10 +23,12 @@ interface HistoryCardProps {
 }
 
 export function Resume() {
+  //! States
   const [totalByCategory, setTotalByCategory] = useState<HistoryCardProps[]>(
     []
   );
 
+  //! Functions
   async function loadData() {
     const response = await getTransactions();
 
@@ -56,7 +60,7 @@ export function Resume() {
         });
 
         const percent = (categorySum / expensivesTotal) * 100;
-        const percentFormatted = `${percent.toFixed(0)}`;
+        const percentFormatted = `${percent.toFixed(0)}%`;
 
         totalByCategory.push({
           name: category.name,
@@ -66,12 +70,14 @@ export function Resume() {
           percentFormatted,
         });
       }
+      console.log("====================================");
+      console.log(totalByCategory);
+      console.log("====================================");
     });
-    
 
     setTotalByCategory(totalByCategory);
   }
-
+  //! Effects
   useEffect(() => {
     loadData();
   }, []);
@@ -89,6 +95,23 @@ export function Resume() {
       </Header>
 
       <Content>
+        <ChartContainer>
+          <VictoryPie
+            animate={{ duration: 2000 }}
+            data={totalByCategory}
+            colorScale={totalByCategory.map((category) => category.color)}
+            style={{
+              labels: {
+                fontSize: RFValue(18),
+                fontWeight: "bold",
+                fill: "#fff",
+              },
+            }}
+            labelRadius={60}
+            x="percentFormatted"
+            y="total"
+          />
+        </ChartContainer>
         {totalByCategory.map((item) => (
           <HistoryCard
             key={item.name}
