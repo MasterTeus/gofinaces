@@ -2,7 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { VictoryPie } from "victory-native";
 
-import { Container, Header, Title, Content, ChartContainer } from "./styles";
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  ChartContainer,
+  MonthSelect,
+  MonthSelectButton,
+  SelectIcon,
+  Month,
+} from "./styles";
 import { HistoryCard } from "../../components/HistoryCard";
 import { getTransactions } from "../../services";
 import { categories } from "../../utils/categories";
@@ -70,9 +80,6 @@ export function Resume() {
           percentFormatted,
         });
       }
-      console.log("====================================");
-      console.log(totalByCategory);
-      console.log("====================================");
     });
 
     setTotalByCategory(totalByCategory);
@@ -95,9 +102,21 @@ export function Resume() {
       </Header>
 
       <Content>
+        <MonthSelect>
+          <MonthSelectButton>
+            <SelectIcon name="chevron-left" />
+          </MonthSelectButton>
+
+          <Month>Junho</Month>
+
+          <MonthSelectButton>
+            <SelectIcon name="chevron-right" />
+          </MonthSelectButton>
+        </MonthSelect>
+
         <ChartContainer>
           <VictoryPie
-            animate={{ duration: 2000 }}
+            animate={{ duration: 200 }}
             data={totalByCategory}
             colorScale={totalByCategory.map((category) => category.color)}
             style={{
