@@ -31,9 +31,9 @@ interface TransactionCardProps {
 interface HistoryCardProps {
   name: string;
   total: string;
+  totalFormated: string;
   color: string;
   percentFormatted: string;
-  percent: string;
 }
 
 export function Resume() {
@@ -86,21 +86,25 @@ export function Resume() {
       });
 
       if (categorySum > 0) {
-        let total = categorySum.toLocaleString("pt-BR", {
+        let totalFormated = categorySum.toLocaleString("pt-BR", {
           style: "currency",
           currency: "BRL",
         });
 
-        const percent = (categorySum / expensivesTotal) * 100;
-        const percentFormatted = `${percent.toFixed(0)}%`;
+        const percentFormatted = `${(
+          (categorySum / expensivesTotal) *
+          100
+        ).toFixed(0)}%`;
 
         totalByCategory.push({
           name: category.name,
           color: category.color,
-          total,
-          percent,
+          total: categorySum,
+          totalFormated,
           percentFormatted,
         });
+
+        console.log(totalByCategory);
       }
     });
     setTotalByCategory(totalByCategory);
@@ -112,10 +116,6 @@ export function Resume() {
       loadData();
     }, [selectedData])
   );
-  // useEffect(() => {
-  //   loadData();
-  // }, [selectedData]);
-
 
   return (
     <Container>
@@ -158,7 +158,7 @@ export function Resume() {
             <HistoryCard
               key={item.name}
               title={item.name}
-              amount={item.total}
+              amount={item.totalFormated}
               color={item.color}
             />
           ))}
