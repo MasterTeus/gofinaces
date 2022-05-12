@@ -5,7 +5,7 @@ import { Profile } from '../../screens/Profile';
 
 describe('Profile Screen', () => {
   it('Verify if show correctly user input name placeholder', () => {
-    const { debug, getByPlaceholderText } = render(<Profile />);
+    const { getByPlaceholderText } = render(<Profile />);
 
     const inputName = getByPlaceholderText('Nome');
 
